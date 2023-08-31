@@ -1,3 +1,4 @@
 Benchmark/Data
 fast-soft-sort
 checkpoint
+**/__pycache__/
