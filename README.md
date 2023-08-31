@@ -19,11 +19,11 @@ Instead, we create smaller-size databases by accessing their databases and only 
 You can reproduce our results by running the below script:
 ### Train
 ```shell
-$ python train.py --benchmark [DARTS, NASNet, ENAS, PNAS, Amoeba, NB201, NB101, Macro]
+$ python train.py --benchmark [DARTS, NASNet, ENAS, PNAS, Amoeba, NB201, NB101, Macro, all]
 ```
-### Train all benchmark
+To train all dataset, 
 ```shell
-$ python all.py
+$ python train.py --benchmark all
 ```
 
 ### Evaluate

@@ -102,16 +102,29 @@ if __name__ == '__main__':
         NB101Loader = NB101API.NASBench('Benchmark/Data/nasbench_only108.tfrecord')
     elif args.benchmark == 'NB201':
         NB201Loader = NB201API('Benchmark/Data/NB201.pth', verbose=False)
-
+    
+    if args.benchmark == 'all':
+        benchmark_list = ['DARTS', 'NASNet', 'PNAS', 'ENAS', 'Amoeba', 'NB201', 'NB101', 'Macro']
+        with open('Benchmark/Data/nas-bench-macro_cifar10.json', 'r') as pfile:
+            macro_acc_cifar10 = json.load(pfile)
+        with open('Benchmark/Data/nasbench/generated_graphs.json', 'r') as pfile:
+            spec_json = json.load(pfile)
+        spec_list = list(spec_json.values())
+        NB101Loader = NB101API.NASBench('Benchmark/Data/nasbench_only108.tfrecord')
+        NB201Loader = NB201API('Benchmark/Data/NB201.pth', verbose=False)
+    else:
+        benchmark_list = [args.benchmark]
+    
     if args.gpus == None:
         device = torch.device('cpu')
     else:
         device = torch.device('cuda:' + str(args.gpus))
-    representative_params = learnable_parameters(100, device, kernel = args.kernel, image_size = args.image_size)
+    representative_params = learnable_parameters(100, device, kernel = args.kernel, image_size = args.input_size)
 
     measurer = performance_evaluator(device)
-    benchmark = args.benchmark
-    indices = list(range(measurer.length(benchmark)))
+    
+    
+    indices =  {benchmark: list(range(measurer.length(benchmark))) for benchmark in benchmark_list}
 
     batch_size = args.batch_size
     y = []
@@ -127,7 +140,8 @@ if __name__ == '__main__':
         with open(os.path.join(checkpoint, 'indices.pickle'), 'rb') as handle:
             indices = pickle.load(handle)
     idx = num_steps * batch_size
-
+    
+    benchmark = benchmark_list[num_steps%len(benchmark_list)]
     while(True):
         if len(y) == batch_size:
             y = torch.stack(y, dim=0).unsqueeze(dim=0)
@@ -145,16 +159,16 @@ if __name__ == '__main__':
             del loss_value
             y = []
             y_lab = []
+            benchmark = benchmark_list[num_steps%len(benchmark_list)]
 
             if num_steps % args.save_freq == 0:
                 representative_params.save(path=os.path.join(checkpoint, f'step_{num_steps}.pth'))
 
-        i = idx % measurer.length(benchmark)
+        i = (num_steps // len(benchmark_list) * batch_size + idx%batch_size) % measurer.length(benchmark)
         if i == 0:
-            random.shuffle(indices)
+            random.shuffle(indices[benchmark])
             with open(os.path.join(checkpoint, 'indices.pickle'), 'wb') as handle:
                 pickle.dump(indices, handle, protocol=pickle.HIGHEST_PROTOCOL)
-        y_lab.append(measurer.accuracy(benchmark, indices[i]))
-        y.append(measurer.compute_score(representative_params, benchmark, indices[i]))
+        y_lab.append(measurer.accuracy(benchmark, indices[benchmark][i]))
+        y.append(measurer.compute_score(representative_params, benchmark, indices[benchmark][i]))
         idx +=1
-        
