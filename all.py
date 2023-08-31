@@ -22,7 +22,7 @@ def parse_args():
     parser.add_argument("--gpus", default=None, help="GPUs selection (for example: 0,1)")
     parser.add_argument("--batch_size", type=int, default=7, help="Batch size  (default: 7)")
     parser.add_argument("--kernel", type=int, default=7, help="Kernel size (default: 7)")
-    parser.add_argument("--image_size", type=int, default=32, help="The size of input image (default: 32)")
+    parser.add_argument("--input_size", type=int, default=32, help="The size of input image (default: 32)")
     parser.add_argument("--save_freq", type=int, default=16, help="Frequency to save checkpoints (default: 16)")
     parser.add_argument("--save_dir", type=str, default="checkpoint/all", help="Directory for saving checkpoints (default: 'checkpoint')")
     parser.add_argument("--resume", action="store_true", default=False, help="Resume training from checkpoint if available")
