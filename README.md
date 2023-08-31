@@ -1,8 +1,8 @@
 # DFT-NPZS-NAS: Prediction-based Zero-Shot NAS with DFT Encodings
 [![MIT licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)
 
-Authors.
-Conference.
+[Authors.]
+[Conference.]
 
 ## Setup
 - Clone repo.
@@ -20,16 +20,21 @@ Instead, we create smaller-size databases by accessing their databases and only 
 
 ## Reproducing the results
 You can reproduce our results by running the below script:
+### Train
 ```shell
 $ python train.py --benchmark [DARTS, NASNet, ENAS, PNAS, Amoeba, NB201, NB101, Macro]
 ```
+### Train all benchmark
+```shell
+$ python all.py
+```
 
-## Evaluate
+### Evaluate
 ```shell
 $ python test.py --checkpoint /path/to/checkpoint
 ```
 
-## Search
+### Search
 ```shell
 $ python search.py --checkpoint /path/to/checkpoint
 ```

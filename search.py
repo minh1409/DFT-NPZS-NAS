@@ -15,11 +15,11 @@ def parse_args():
     parser.add_argument("--gpus", default=None, help="GPUs selection (for example: 0,1)")
     parser.add_argument("--pop_size", type=int, default=512, help="Population size (default: 512)")
     parser.add_argument("--max_gen", type=int, default=2048, help="Maximum number of generations (default: 2048)")
-    parser.add_argument("--checkpoint", type=str, default="checkpoint/step_16.pth", help="Path for saving checkpoints (default: 'checkpoint/step_16.pth')")
+    parser.add_argument("--checkpoint", type=str, default="checkpoint/train/step_16.pth", help="Path for saving checkpoints (default: 'checkpoint/step_16.pth')")
     parser.add_argument("--max_model_size", type=float, default=1e6, help="Maximum model size (default: 1e6)")
     parser.add_argument("--max_layers", type=int, default=16, help="Maximum number of layers (default: 16)")
     parser.add_argument("--print_freq", type=int, default=1, help="Printing frequency (default: 1)")
-    parser.add_argument("--save_dir", type=str, default="checkpoint", help="Directory to save checkpoints (default: 'checkpoint')")
+    parser.add_argument("--save_dir", type=str, default="checkpoint/search", help="Directory to save checkpoints (default: 'checkpoint')")
     parser.add_argument("--resume", action="store_true", default=False, help="Resume training from checkpoint if available")
     
     return parser.parse_args()

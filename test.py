@@ -22,7 +22,7 @@ def parse_args():
 
     # Add arguments
     parser.add_argument("--gpus", default=None, help="GPUs selection (for example: 0,1)")
-    parser.add_argument("--checkpoint", type=str, default="checkpoint/step_16.pth", help="Path for saving checkpoints (default: 'checkpoint/step_16.pth')")
+    parser.add_argument("--checkpoint", type=str, default="checkpoint/train/step_16.pth", help="Path for saving checkpoints (default: 'checkpoint/step_16.pth')")
 
     return parser.parse_args()
 
@@ -41,7 +41,7 @@ class performance_evaluator():
             model_spec = NB101API.ModelSpec(matrix=np.asarray(spec_list[id][0:-1])[0],
                                        ops=[INPUT] + [ALLOWED_OPS[op] for op in spec_list[id][-1][1:-1]]+ [OUTPUT])
             model = NB101(representative_params, model_spec)
-        else:
+        elif benchmark == 'Macro':
             arch = list(macro_acc_cifar10.keys())[id]
             arch = get_real_arch(arch)
             arch = [int(x) for x in arch]
@@ -70,17 +70,19 @@ class performance_evaluator():
             model_spec = NB101API.ModelSpec(matrix=np.asarray(spec_list[id][0:-1])[0],
                                        ops=[INPUT] + [ALLOWED_OPS[op] for op in spec_list[id][-1][1:-1]]+ [OUTPUT])
             return NB101Loader.query(model_spec, 108)['test_accuracy']
-        arch = list(macro_acc_cifar10.keys())[id]
-        return macro_acc_cifar10[arch]['mean_acc']
+        if benchmark == 'Macro':
+            arch = list(macro_acc_cifar10.keys())[id]
+            return macro_acc_cifar10[arch]['mean_acc']
 
     def length(self, benchmark):
         if benchmark in ['DARTS', 'NASNet', 'PNAS', 'ENAS', 'Amoeba', 'DARTS_in', 'NASNet_in', 'PNAS_in', 'ENAS_in', 'Amoeba_in']:
             return self.NDS[benchmark].__len__()
-        elif benchmark == 'NB201':
+        if benchmark == 'NB201':
             return len(NB201Loader)
-        elif benchmark == 'NB101':
+        if benchmark == 'NB101':
             return len(spec_list)
-        return len(macro_acc_cifar10)
+        if benchmark == 'Macro':
+            return len(macro_acc_cifar10)
     
 if __name__ == '__main__':
 
