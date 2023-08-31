@@ -21,12 +21,12 @@ You can reproduce our results by running the below script:
 ```shell
 $ python train.py --benchmark [DARTS, NASNet, ENAS, PNAS, Amoeba, NB201, NB101, Macro, all]
 ```
+All weight files for the training process are provided [here](https://drive.google.com/drive/folders/1-2pEC3Dm49UMh7dgzc5dnTI6Sw9uPVxn)
 
 ### Evaluate
 ```shell
 $ python test.py --checkpoint /path/to/checkpoint
 ```
-
 ### Search
 ```shell
 $ python search.py --checkpoint /path/to/checkpoint
