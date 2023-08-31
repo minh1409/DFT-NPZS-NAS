@@ -123,7 +123,6 @@ if __name__ == '__main__':
 
     measurer = performance_evaluator(device)
     
-    
     indices =  {benchmark: list(range(measurer.length(benchmark))) for benchmark in benchmark_list}
 
     batch_size = args.batch_size
@@ -145,14 +144,14 @@ if __name__ == '__main__':
     while(True):
         if len(y) == batch_size:
             y = torch.stack(y, dim=0).unsqueeze(dim=0)
-            print(y)
+            # print(y)
             y_lab = torch.tensor([y_lab])
             corr = spearmanr(y, y_lab)
             loss_value = corr * -1
             loss_value.backward()
             representative_params.step()
             num_steps+=1
-            print(num_steps, idx, benchmark, "CORR: " + str(float(corr.detach().cpu().numpy())))
+            print("step:", num_steps, "; benhmark:", benchmark, ";CORR: " + str(float(corr.detach().cpu().numpy())))
             del y
             del y_lab
             del corr
