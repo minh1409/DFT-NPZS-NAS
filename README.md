@@ -1,9 +1,6 @@
 # DFT-NPZS-NAS: Prediction-based Zero-Shot NAS with DFT Encodings
 [![MIT licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)
 
-Authors.
-Conference.
-
 ## Setup
 - Clone repo.
 - Install necessary packages.
