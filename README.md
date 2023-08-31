@@ -1,4 +1,4 @@
-# Net
+# DFT-NPZS-NAS: DFT based Prediction based Zero-shot NAS
 [![MIT licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)
 
 Authors.
