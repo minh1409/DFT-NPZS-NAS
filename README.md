@@ -7,7 +7,7 @@
 ```
 $ pip install -r requirements.txt
 ```
--  Download databases 
+-  Download databases and requirements 
 ```
 $ wget downloaddata.sh
 ```
