@@ -21,10 +21,6 @@ You can reproduce our results by running the below script:
 ```shell
 $ python train.py --benchmark [DARTS, NASNet, ENAS, PNAS, Amoeba, NB201, NB101, Macro, all]
 ```
-To train all dataset, 
-```shell
-$ python train.py --benchmark all
-```
 
 ### Evaluate
 ```shell
@@ -35,7 +31,6 @@ $ python test.py --checkpoint /path/to/checkpoint
 ```shell
 $ python search.py --checkpoint /path/to/checkpoint
 ```
-Please see specific file to modify the suitable argument parser
 
 ## Acknowledgement
 Our source code is inspired by:
