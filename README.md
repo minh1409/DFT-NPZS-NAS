@@ -1,4 +1,4 @@
-# DFT-NPZS-NAS: DFT based Prediction based Zero-shot NAS
+# DFT-NPZS-NAS: Prediction-based Zero-Shot NAS with DFT Encodings
 [![MIT licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)
 
 Authors.
