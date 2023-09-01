@@ -19,7 +19,7 @@ Instead, we create smaller-size databases by accessing their databases and only 
 You can reproduce our results by running the below script:
 ### Train
 ```shell
-$ python train.py --benchmark [DARTS, NASNet, ENAS, PNAS, Amoeba, NB201, NB101, Macro, all]
+$ python train.py --benchmark <DARTS, NASNet, ENAS, PNAS, Amoeba, NB201, NB101, Macro, all>
 ```
 All weight files for the training process are provided [here](https://drive.google.com/drive/folders/1-2pEC3Dm49UMh7dgzc5dnTI6Sw9uPVxn)
 
