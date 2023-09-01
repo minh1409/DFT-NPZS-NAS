@@ -151,7 +151,7 @@ if __name__ == '__main__':
             loss_value.backward()
             representative_params.step()
             num_steps+=1
-            print("step:", num_steps, "; benhmark:", benchmark, ";CORR: " + str(float(corr.detach().cpu().numpy())))
+            print("Benhmark:", benchmark, "- Step:", num_steps, "- Correlation: " + str(float(corr.detach().cpu().numpy())))
             del y
             del y_lab
             del corr

@@ -1,4 +1,9 @@
 einops
-torch
 yacs
 protobuf==3.20.0
+scipy
+numpy
+scikit-learn
+matplotlib
+tqdm
+torch
