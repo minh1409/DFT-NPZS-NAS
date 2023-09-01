@@ -23,6 +23,7 @@ def parse_args():
     # Add arguments
     parser.add_argument("--gpus", default=None, help="GPUs selection (for example: 0,1)")
     parser.add_argument("--checkpoint", type=str, default="checkpoint/train/step_16.pth", help="Path for saving checkpoints (default: 'checkpoint/step_16.pth')")
+    parser.add_argument("--vnorm", type=bool, default=True, help="V-Norm (default: True)")
 
     return parser.parse_args()
 
@@ -51,7 +52,6 @@ class performance_evaluator():
         inputs = representative_params.synthesized_image
         inputs = inputs.to(self.device)
         model.to(self.device)
-        outputs = model(inputs)
         outputs = model(inputs)
         outputs = representative_params.scorer(outputs)
         outputs = torch.squeeze(torch.unsqueeze(outputs, dim=0), dim=-1)
@@ -100,7 +100,7 @@ if __name__ == '__main__':
         device = torch.device('cpu')
     else:
         device = torch.device('cuda:' + str(args.gpus))
-    representative_params = learnable_parameters(100, device, kernel = 7, image_size = 32)
+    representative_params = learnable_parameters(100, device, kernel = 7, image_size = 32, vnorm=args.vnorm)
 
     measurer = performance_evaluator(device)
 

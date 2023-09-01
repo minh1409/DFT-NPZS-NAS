@@ -6,13 +6,22 @@ from .constructedblock import LinearLayer, variance_to_one, SymLog
 from .fftkernel import fft_kernel
 
 class learnable_parameters():
-    def __init__(self, n_classes, device, kernel, image_size, betas = (0.9, 0.95)):
-        self.scorer = nn.Sequential(
-            LinearLayer(self, 64, n_classes, 'softmax'),
-            variance_to_one(),
-            SymLog(1.2),
-            nn.Linear(n_classes, 1)
-        )
+    def __init__(self, n_classes, device, kernel, image_size, vnorm, betas = (0.9, 0.95)):
+        self.vnorm = vnorm
+        if self.vnorm:
+            self.scorer = nn.Sequential(
+                LinearLayer(self, 64, n_classes, 'softmax'),
+                variance_to_one(),
+                SymLog(1.2),
+                nn.Linear(n_classes, 1)
+            )
+        else:
+            self.scorer = nn.Sequential(
+                LinearLayer(64, n_classes, self, 'softmax'),
+                SymLog(1.2),
+                nn.Linear(n_classes, 1)
+            )
+        
         self.device = device
         self.kernel_synthesizer = fft_kernel(64, 64, kernel, device=self.device, betas = betas)
 
@@ -61,18 +70,7 @@ class learnable_parameters():
         self.multi_image_representative_scorer_optimizer.load_state_dict(checkpoint_dict['multi_image_representative_scorer_optimizer'])
         self.scorer_optimizer = checkpoint_dict['scorer_optimizer']
         self.tensors_optimizer.load_state_dict(checkpoint_dict['tensors_optimizer'])
-        
-    # def load(self, path='./checkpoint/'):
-    #     self.scorer.load_state_dict(torch.load(path + 'scorer.pt',  map_location=self.device))
-    #     self.multi_image_representative_scorer.load_state_dict(torch.load(path + 'multi_image_representative_scorer.pt',  map_location=self.device))
-    #     self.synthesized_image_32 = torch.load(path + 'synthesized_image_32.pt', map_location=self.device)
-    #     self.synthesized_image_224 = torch.load(path + 'synthesized_image_224.pt', map_location=self.device)
-    #     self.kernel_synthesizer.load(path)
-    #     self.tensors_optimizer_32.load_state_dict(torch.load(path + 'tensors_optimizer_32.pt', map_location=self.device))
-    #     self.tensors_optimizer_224.load_state_dict(torch.load(path + 'tensors_optimizer_224.pt', map_location=self.device))
-    #     self.scorer_optimizer = torch.load(path + 'scorer_optimizer.pt', map_location=self.device)
-    #     self.multi_image_representative_scorer_optimizer.load_state_dict(torch.load(path + 'multi_image_representative_scorer_optimizer.pt', map_location=self.device))
-    
+            
     def step(self, dataset = "CIFAR"):
         self.kernel_synthesizer.step()
         self.tensors_optimizer.step()

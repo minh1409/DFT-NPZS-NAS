@@ -21,9 +21,10 @@ def parse_args():
     # Add arguments
     parser.add_argument("--gpus", default=None, help="GPUs selection (for example: 0,1)")
     parser.add_argument("--benchmark", type=str, default="DARTS", help="Benchmark name (default: 'DARTS')")
-    parser.add_argument("--batch_size", type=int, default=7, help="Batch size  (default: 7)")
+    parser.add_argument("--batch_size", type=int, default=7, help="Batch size (default: 7)")
     parser.add_argument("--kernel", type=int, default=7, help="Kernel size (default: 7)")
     parser.add_argument("--input_size", type=int, default=32, help="The size of input image (default: 32)")
+    parser.add_argument("--vnorm", type=bool, default=True, help="V-Norm (default: True)")
     parser.add_argument("--save_freq", type=int, default=16, help="Frequency to save checkpoints (default: 16)")
     parser.add_argument("--save_dir", type=str, default="checkpoint", help="Directory for saving checkpoints (default: 'checkpoint')")
     parser.add_argument("--resume", action="store_true", default=False, help="Resume training from checkpoint if available")
@@ -55,7 +56,8 @@ class performance_evaluator():
         inputs = representative_params.synthesized_image
         inputs = inputs.to(self.device)
         model.to(self.device)
-        outputs = model(inputs)
+        if representative_params.vnorm == True:
+            outputs = model(inputs)
         outputs = model(inputs)
         outputs = representative_params.scorer(outputs)
         outputs = torch.squeeze(torch.unsqueeze(outputs, dim=0), dim=-1)
@@ -119,7 +121,7 @@ if __name__ == '__main__':
         device = torch.device('cpu')
     else:
         device = torch.device('cuda:' + str(args.gpus))
-    representative_params = learnable_parameters(100, device, kernel = args.kernel, image_size = args.input_size)
+    representative_params = learnable_parameters(100, device, kernel = args.kernel, image_size = args.input_size, vnorm = args.vnorm)
 
     measurer = performance_evaluator(device)
     

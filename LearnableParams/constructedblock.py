@@ -60,8 +60,43 @@ class convolutions(nn.Module):
         self.n_size = 3
 
     def forward(self, x):
-        weights, bias = self.representative_params.kernel_synthesizer.get_kernels(self.kernel_size, self.in_channels// self.groups, self.out_channels, self.non_linearity)
-        if self.is_sample == False:
+        if self.representative_params.vnorm:
+            weights, bias = self.representative_params.kernel_synthesizer.get_kernels(self.kernel_size, self.in_channels// self.groups, self.out_channels, self.non_linearity)
+            if self.is_sample == False:
+                x = F.conv2d(x,
+                            weights,
+                            bias,
+                            stride=self.stride,
+                            padding=self.padding,
+                            dilation=self.dilation,
+                            groups= self.groups)
+                return x / (self.normalizing_constant + 0.00001)
+            else:
+                with torch.no_grad():
+                    normalizing_constants = []
+                    for i in range(0, 1):
+                        x_ = F.conv2d(x,
+                                    weights,
+                                    bias,
+                                    stride=self.stride,
+                                    padding=self.padding,
+                                    dilation=self.dilation,
+                                    groups= self.groups)
+                        normalizing_constants.append(torch.std(x_) ** 2)
+                        del x_
+                    self.normalizing_constant = torch.sqrt(sum(normalizing_constants) / 1)
+                    self.normalizing_constant = torch.nan_to_num(self.normalizing_constant)
+                    self.is_sample = False
+                    ret = F.conv2d(x,
+                                weights,
+                                bias,
+                                stride=self.stride,
+                                padding=self.padding,
+                                dilation=self.dilation,
+                                groups= self.groups)
+                return ret / (self.normalizing_constant + 0.00001)
+        else:
+            weights, bias = self.representative_params.kernel_synthesizer.get_kernels(self.kernel_size, self.in_channels// self.groups, self.out_channels, self.non_linearity)
             x = F.conv2d(x,
                         weights,
                         bias,
@@ -69,31 +104,8 @@ class convolutions(nn.Module):
                         padding=self.padding,
                         dilation=self.dilation,
                         groups= self.groups)
-            return x / (self.normalizing_constant + 0.00001)
-        else:
-            with torch.no_grad():
-                normalizing_constants = []
-                for i in range(0, 1):
-                    x_ = F.conv2d(x,
-                                weights,
-                                bias,
-                                stride=self.stride,
-                                padding=self.padding,
-                                dilation=self.dilation,
-                                groups= self.groups)
-                    normalizing_constants.append(torch.std(x_) ** 2)
-                    del x_
-                self.normalizing_constant = torch.sqrt(sum(normalizing_constants) / 1)
-                self.normalizing_constant = torch.nan_to_num(self.normalizing_constant)
-                self.is_sample = False
-                ret = F.conv2d(x,
-                            weights,
-                            bias,
-                            stride=self.stride,
-                            padding=self.padding,
-                            dilation=self.dilation,
-                            groups= self.groups)
-            return ret / (self.normalizing_constant + 0.00001)
+            return x
+
 
 class SymLog(nn.Module):
     def __init__(self, l):

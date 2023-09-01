@@ -39,7 +39,6 @@ class fft_kernel(): # GENERALIZED CONVOLUTIONS, WOOHOO
         kernel_bias_outputs = torch.abs(torch.fft.fft(kernel_bias_outputs, n=n_out,dim=0, norm='ortho')) * energy_conserve(n_out, self.n_out)
         kernel_weight_outputs = kernel_weight_outputs.view((n_out, n_in, kernel_size[0], kernel_size[1]))
         return kernel_weight_outputs * self.gains.get(non_linearity, 1) / math.sqrt(n_in * kernel_size[0] * kernel_size[1]), kernel_bias_outputs
-        # return kernel_weight_outputs * self.gains.get(non_linearity, 1) / math.sqrt(n_in), kernel_bias_outputs
 
     def load(self, path='./checkpoint.pth'):
         checkpoint_dict = torch.load(path, map_location=self.device)
