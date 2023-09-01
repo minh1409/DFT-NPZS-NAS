@@ -32,6 +32,17 @@ $ python test.py --checkpoint /path/to/checkpoint
 $ python search.py --checkpoint /path/to/checkpoint
 ```
 
+## If you find this useful...
+```
+@misc{le2023efficacy,
+      title={Efficacy of Neural Prediction-Based NAS for Zero-Shot NAS Paradigm}, 
+      author={Minh Le and Nhan Nguyen and Ngoc Hoang Luong},
+      year={2023},
+      eprint={2308.16775},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
+}
+```
 ## Acknowledgement
 Our source code is inspired by:
 - [NAS-Bench-101: Towards Reproducible Neural Architecture Search](https://github.com/google-research/nasbench)
