@@ -23,7 +23,7 @@ def parse_args():
     # Add arguments
     parser.add_argument("--gpus", default=None, help="GPUs selection (for example: 0,1)")
     parser.add_argument("--checkpoint", type=str, default="checkpoint/train/step_16.pth", help="Path for saving checkpoints (default: 'checkpoint/step_16.pth')")
-    parser.add_argument("--vnorm", type=bool, default=True, help="V-Norm (default: True)")
+    parser.add_argument("--wo_vnorm", action="store_true", default=False, help="Without V-Normalization(default: False)")
 
     return parser.parse_args()
 
@@ -100,7 +100,7 @@ if __name__ == '__main__':
         device = torch.device('cpu')
     else:
         device = torch.device('cuda:' + str(args.gpus))
-    representative_params = learnable_parameters(100, device, kernel = 7, image_size = 32, vnorm=args.vnorm)
+    representative_params = learnable_parameters(100, device, kernel = 7, image_size = 32, vnorm = not args.wo_vnorm)
 
     measurer = performance_evaluator(device)
 
