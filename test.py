@@ -113,7 +113,7 @@ if __name__ == '__main__':
     accs = {benchmark: [] for benchmark in benchmark_list}
 
     for benchmark in benchmark_list:
-        idx[benchmark] = [i for i in range(measurer.length(benchmark))]
+        idx[benchmark] = list(range(measurer.length(benchmark)))
         random.shuffle(idx[benchmark])
         idx[benchmark] = idx[benchmark][:1000]
 

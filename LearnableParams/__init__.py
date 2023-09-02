@@ -17,7 +17,7 @@ class learnable_parameters():
             )
         else:
             self.scorer = nn.Sequential(
-                LinearLayer(64, n_classes, self, 'softmax'),
+                LinearLayer(self, 64, n_classes, 'softmax'),
                 SymLog(1.2),
                 nn.Linear(n_classes, 1)
             )
