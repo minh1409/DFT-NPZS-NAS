@@ -16,7 +16,7 @@ In our experiments, we do not implement directly the API benchmarks published in
 Instead, we create smaller-size databases by accessing their databases and only logging necessary content.
 
 ## Reproducing the results
-You can reproduce our results by running the below script:
+You can reproduce our results by running the below scripts:
 ### Train
 ```shell
 $ python train.py --benchmark <DARTS, NASNet, ENAS, PNAS, Amoeba, NB201, NB101, Macro, all>
