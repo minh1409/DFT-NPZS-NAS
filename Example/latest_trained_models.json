@@ -1,0 +1,32 @@
+{
+    "norm": {
+        "DARTS": [0.8049906059354544, 0.2966019842424151],
+        "NASNet": [0.07937944686971604, 0.07315278631175963],
+        "PNAS": [0.7018061838299036, 0.21947524338561494],
+        "ENAS": [0.24869982429780066, 0.1322807040539274],
+        "Amoeba": [0.5204065662436187, 0.17608106670605125],
+        "NB201": [0.5424584794789553, 0.11711810549040359],
+        "Macro": [0.09426288727670908, 0.08715504688782222],
+        "NB101": [0.4432428974285722, 0.1743986509113145]
+    },
+    "weight_score": {
+        "DARTS": 8.373e-01,
+        "NASNet": 8.373e-01,
+        "PNAS": 4.119e-01,
+        "ENAS": 7.639e-01,
+        "Amoeba": 9.011e-01,
+        "NB201": 2.345e-02,
+        "Macro": 9.906e-01,
+        "NB101": 6.629e-04
+    },
+    "path": {
+        "DARTS": "path/to/checkpoint/DARTS",
+        "NASNet": "path/to/checkpoint/NASNet",
+        "PNAS": "path/to/checkpoint/PNAS",
+        "ENAS": "path/to/checkpoint/ENAS",
+        "Amoeba": "path/to/checkpoint/Amoeba",
+        "NB201": "path/to/checkpoint/NB201",
+        "Macro": "path/to/checkpoint/Macro",
+        "NB101": "path/to/checkpoint/NB101"
+    }
+}

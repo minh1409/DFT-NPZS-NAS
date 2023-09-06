@@ -6,7 +6,7 @@ from .constructedblock import LinearLayer, variance_to_one, SymLog
 from .fftkernel import fft_kernel
 
 class learnable_parameters():
-    def __init__(self, n_classes, device, kernel, image_size, vnorm, betas = (0.9, 0.95)):
+    def __init__(self, n_classes, device, kernel, image_size, vnorm = True, betas = (0.9, 0.95)):
         self.vnorm = vnorm
         if self.vnorm:
             self.scorer = nn.Sequential(

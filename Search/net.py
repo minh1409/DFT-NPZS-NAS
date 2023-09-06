@@ -47,7 +47,7 @@ class MasterNet(PlainNet):
         self.no_BN = no_BN
         self.use_se = use_se
         self.gap = gAP()
-        self.scorer = representative_params.scorer
+        # self.scorer = representative_params.scorer
 
 
         # bn eps

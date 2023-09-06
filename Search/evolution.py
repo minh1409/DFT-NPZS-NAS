@@ -13,7 +13,7 @@ def binary_tournament_selection(population):
     else:
         return individual2
 
-def crossover_GA(parent1, parent2, population, types):
+def crossover_GA(parent1, parent2, types):
     GA_cross_over = 0.5
     GA_mutatation_rate = 0.8  # Mutation rate for GA
 
@@ -56,7 +56,7 @@ def generate_offspring_DE(population, types):
     while len(offspring) < len(population): #GA
         client1 = binary_tournament_selection(population)
         client2 = binary_tournament_selection(population)
-        child1, child2 = crossover_GA(client1, client2, population, types)
+        child1, child2 = crossover_GA(client1, client2, types)
         offspring.extend([child1, child2])
     offspring_DE = []
     for ind in offspring[:len(population)]: #DE
