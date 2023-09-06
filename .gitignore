@@ -2,3 +2,4 @@ Benchmark/Data
 fast-soft-sort
 checkpoint
 **/__pycache__/
+plot.pdf

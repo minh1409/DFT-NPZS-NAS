@@ -24,9 +24,9 @@ def parse_args():
     parser.add_argument("--save_dir", type=str, default="checkpoint/search", help="Directory to save checkpoints (default: 'checkpoint')")
     parser.add_argument("--resume", action="store_true", default=False, help="Resume training from checkpoint if available")
     parser.add_argument("--ensemble", action="store_true", default=False, help="Ensemble trained benchmark")
-    parser.add_argument("--checkpoint_for_ensemble", type=str, default = 'Example/latest_trained_models.json',
-                        help="Path of checkpoint's models (default: 'Example/latest_trained_models.json'),\
-                              please see example in 'Example/latest_trained_models.json',\
+    parser.add_argument("--checkpoint_for_ensemble", type=str, default = 'Example/latest_trained_models_esemble.json',
+                        help="Path of checkpoint's models (default: 'Example/latest_trained_models_esemble.json'),\
+                              please see example formatting,\
                               generate example using python Search/ensemble.py")
 
     return parser.parse_args()
