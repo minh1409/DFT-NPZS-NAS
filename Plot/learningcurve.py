@@ -6,7 +6,7 @@ import matplotlib as mpl
 mpl.rcParams['axes.spines.right'] = False
 mpl.rcParams['axes.spines.top'] = False
 
-def learning_curve(epochs, models):
+def learning_curve(steps, models):
     """
     Visualize the learning curves of different models over a series of epochs.
 
@@ -24,7 +24,7 @@ def learning_curve(epochs, models):
     distinguish between the different models being compared.
 
     Example Usage:
-    epochs = [16, 80, 176, 352, 528, 720, 896, 1072, 1248 ,1440]
+    steps = [16, 80, 176, 352, 528, 720, 896, 1072, 1248 ,1440]
     models = {
         'DARTS': [0.2, 0.4, 0.6, 0.6, 0.6, 0.8, 0.8, 0.8, 0.9, 0.9],
         'NASNet': [0.1, 0.3, 0.5, 0.1, 0.3, 0.1, 0.8, 0.7, 0.8, 0.9],
@@ -42,15 +42,15 @@ def learning_curve(epochs, models):
     # Iterate over each benchmark or model in the dictionary.
     for benchmark_train in models:
         # Plot the model's learning curve as a line with markers.
-        plt.plot(epochs, models[benchmark_train], '-o', label=benchmark_train)
+        plt.plot(steps, models[benchmark_train], '-o', label=benchmark_train)
 
     # Set the x and y-axis labels with appropriate font sizes.
-    plt.xlabel('Epoch', fontsize="20")
+    plt.xlabel('Step', fontsize="20")
     plt.ylabel('Correlation', fontsize="20")
     
     # Define specific tick values for the y-axis and use the provided epochs for x-axis ticks.
     plt.yticks([0.0, 0.2, 0.4, 0.6, 0.8, 1.0])
-    plt.xticks(epochs)
+    plt.xticks(steps)
 
     # Set the title of the plot.
     plt.title('Learning Curve', fontsize="20")
