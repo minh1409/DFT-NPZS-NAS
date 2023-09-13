@@ -35,7 +35,7 @@ $ python search.py --checkpoint /path/to/checkpoint
 ## If you find this useful...
 ```
 @misc{le2023efficacy,
-      title={Efficacy of Neural Prediction-Based NAS for Zero-Shot NAS Paradigm}, 
+      title={Efficacy of Neural Prediction-Based Zero-Shot NAS}, 
       author={Minh Le and Nhan Nguyen and Ngoc Hoang Luong},
       year={2023},
       eprint={2308.16775},
