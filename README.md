@@ -44,9 +44,10 @@ $ python search.py --checkpoint /path/to/checkpoint
 }
 ```
 ## Acknowledgement
-Our source code is inspired by:
+Our source code was implemented based on the following sources:
 - [NAS-Bench-101: Towards Reproducible Neural Architecture Search](https://github.com/google-research/nasbench)
 - [NAS-Bench-201: Extending the Scope of Reproducible Neural Architecture Search](https://github.com/D-X-Y/NAS-Bench-201)
 - [NAS-Bench-Macro: Prioritized Architecture Sampling with Monto-Carlo Tree Search](https://github.com/xiusu/NAS-Bench-Macro)
 - [NDS: Designing Network Design Spaces](https://github.com/facebookresearch/pycls)
 - [ZenNAS: A Zero-Shot NAS for High-Performance Deep Image Recognition](https://github.com/facebookresearch/pycls](https://github.com/idstcv/ZenNAS)https://github.com/idstcv/ZenNAS)
+- [Fast Differentiable Sorting and Ranking](https://github.com/google-research/fast-soft-sort)
